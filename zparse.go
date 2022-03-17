@@ -177,6 +177,7 @@ type PoolType struct {
 	scan    string
 	devs    []*DevEntry
 	errors  string
+	remove  string
 	infostr string
 }
 
@@ -245,12 +246,12 @@ func parseZpoolStatus(zpoolStatusOutput string) (pools []*PoolType, err error) {
 			line[:8] == "   see: ":
 			curpool.see = line[8:]
 			s = stSEE
+		case len(line) >= 8 && line[:8] == "remove: ":
+			curpool.remove = line[8:]
 		case (s == stSTATE || s == stACTION || s == stSEE) &&
 			len(line) >= 7 && line[:7] == " scan: ":
 			curpool.scan = line[7:]
 			s = stSCAN
-		// fix for 240245896aad46d0d41b0f9f257ff2abd09cb29b
-		// released in zfs-0.6.0-rc14
 		case (s == stSTATE || s == stACTION || s == stSEE) &&
 			len(line) >= 8 && line[:8] == "  scan: ":
 			curpool.scan = line[8:]

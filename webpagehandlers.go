@@ -101,6 +101,7 @@ type poolStatusWeb struct {
 	Status       string
 	Action       string
 	See          string
+	Remove       string
 	Scan         string
 	Devs         []devStatusWeb
 	Errors       string
@@ -196,6 +197,7 @@ func makePoolStatusWeb(pool *PoolType, usage map[string]*PoolUsageType) *poolSta
 		Status:     pool.status,
 		Action:     pool.action,
 		See:        pool.see,
+		Remove:     pool.remove,
 		Scan:       pool.scan,
 		Errors:     pool.errors,
 		Root:       cfg.Www.Rootdir,

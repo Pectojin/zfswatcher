@@ -54,9 +54,10 @@ clean:
 	version=$(VERSION) &&						\
 	rm -f zfswatcher						\
 		zfswatcher-$${version}.tar.gz				\
-		zfswatcher-$${version}-*.rpm				\
-		zfswatcher_$${version}-*.deb				\
-		zfswatcher_$${version}-*.changes
+		zfswatcher-$${version}*.rpm				\
+		zfswatcher_$${version}*.deb				\
+		zfswatcher_$${version}*.buildinfo			\
+		zfswatcher_$${version}*.changes
 
 install: zfswatcher
 	install -d $(DESTDIR)$(sbindir) $(DESTDIR)$(sysconfdir)/zfs	\
@@ -87,10 +88,11 @@ newdebversion:
 # Make Debian package:
 deb:
 	version=$(VERSION) &&						\
-	dpkg-buildpackage -b -uc -tc &&					\
-	mv ../zfswatcher_$${version}-*.deb 				\
-		../zfswatcher_$${version}-*.changes 			\
-		.
+	dpkg-buildpackage -b -uc &&					\
+	mv ../zfswatcher_$${version}*.deb 				\
+	   ../zfswatcher_$${version}*.changes 			\
+	   ../zfswatcher_$${version}*.buildinfo			\
+	   .
 
 # Make RPM package:
 rpm:	dist
